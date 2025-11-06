@@ -1,0 +1,23 @@
+from enum import Enum
+
+
+class TextType(Enum):
+    BOLD_TEXT = 'bold'
+    ITALIC_TEXT = 'italic'
+    CODE_TEXT = 'code'
+    LINK = 'link'
+    IMAGE = 'image'
+
+class TextNode:
+    def __init__(self, text: str, text_type: TextType | str, url: str | None = None):
+        self.text = text
+        self.text_type = TextType(text_type)
+        self.url = url
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)):
+            return NotImplemented
+        return self.__dict__ == other.__dict__
+    
+    def __repr__(self):
+        return f'TextNode({self.text}, {self.text_type.value}, {self.url})'
