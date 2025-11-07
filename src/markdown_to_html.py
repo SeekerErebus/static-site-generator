@@ -7,7 +7,7 @@ from blocks_markdown import (
 )
 from textnode import TextNode, TextType, text_node_to_html_node
 from inline_markdown import text_to_textnodes
-from htmlnode import LeafNode, ParentNode, HTMLNode
+from htmlnode import LeafNode, ParentNode
 
 
 def markdown_to_html_node(markdown):
@@ -17,7 +17,7 @@ def markdown_to_html_node(markdown):
         block_type = block_to_block_type(block)
         match block_type:
             case BlockType.PARAGRAPH:
-                t1 = block.replace('\n', '')
+                t1 = block.replace('\n', ' ')
                 t2 = text_to_leaves(t1)
                 html = ParentNode('p', t2) # pyright: ignore[reportArgumentType]
             case BlockType.HEADING:
@@ -27,9 +27,11 @@ def markdown_to_html_node(markdown):
                 t3 = text_to_leaves(t2)
                 html = ParentNode(f'h{level}', t3) # pyright: ignore[reportArgumentType]
             case BlockType.CODE:
-                code_block = TextNode(block, TextType.CODE)
-                t1 = text_node_to_html_node(code_block)
-                html = ParentNode('pre', [code_block]) # pyright: ignore[reportArgumentType]
+                t1 = block.lstrip('```').rstrip('```')
+                t2 = t1.lstrip('\n').rstrip('\n')
+                code_block = TextNode(t2, TextType.CODE)
+                t3 = text_node_to_html_node(code_block)
+                html = ParentNode('pre', [t3]) # pyright: ignore[reportArgumentType]
             case BlockType.QUOTE:
                 t1 = _start_strip(block, lambda i: '> ')
                 t2 = text_to_leaves(t1)
