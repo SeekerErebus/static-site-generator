@@ -1,8 +1,10 @@
-from textnode import TextNode
+import re
+from textnode import TextNode, TextType
+from htmlnode import LeafNode, ParentNode, HTMLNode
 
 
 def main():
-    txtnode = TextNode('this is some bold text', 'bold')
+    txtnode = TextNode('this is some bold text', TextType.BOLD)
     print(txtnode)
     
 
