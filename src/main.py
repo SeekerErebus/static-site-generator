@@ -1,11 +1,8 @@
-import re
-from textnode import TextNode, TextType
-from htmlnode import LeafNode, ParentNode, HTMLNode
+from copy_static import copy_static
 
 
 def main():
-    txtnode = TextNode('this is some bold text', TextType.BOLD)
-    print(txtnode)
+    copy_static()
     
 
 if __name__ == "__main__":
