@@ -1,8 +1,10 @@
+import os, helpers
 from copy_static import copy_static
 
 
 def main():
-    copy_static()
+    print(helpers.get_os_directories())
+
     
 
 if __name__ == "__main__":

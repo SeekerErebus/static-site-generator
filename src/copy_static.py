@@ -1,11 +1,10 @@
 import os
 import shutil
+import helpers
 
 
 def copy_static():
-    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    static_dir = os.path.join(root_dir, 'static')
-    public_dir = os.path.join(root_dir, 'public')
+    root_dir, static_dir, public_dir = helpers.get_os_directories()
 
     if not os.path.exists(static_dir):
         raise FileNotFoundError("There is no static directory.")
